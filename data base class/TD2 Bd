@@ -1,0 +1,64 @@
+drop table (client, village, sejour) cascade constraints;
+
+
+
+1) a) Quelles sont les contraites SQL:
+create table client(
+1dc integer PRIMARY KEY.
+nom varchar (32) NOT NULL.
+age integer NoT NULL, check ((age ›= 16) and (age < 120)), avoir integer default 2000, check ((avoir >= 0) and (avoir <= 2000) )
+
+
+donc 6 contraintes (les not null sont comptés qu'une fois)
+
+
+b)
+
+village :
+idv pk
+ville not nutt
+activite
+prix not null et 2000 >= prix >= ©
+capacite not null 1000 ›= capacite >= 1 // au noins une capacite par village unique (idv, activite)
+
+requete sql :
+
+CREATE TABLE village (
+idv INTEGER PRIMARY KEY.
+ville VARCHAR (32) NOT NULL, activite VARCHAR (32),
+prix INT NOT NULL, CHECK ((prix>-0) and (prix <= 2000)).
+capacite INT NOT NULL, CHECK ((capacite ›= 1) and (capacite <= 1000))
+
+
+
+sejour : 
+ids pk
+ide foreign key not null client 
+idv foreign key not null village
+jour not null 1 <= jour <= 360 (ide, jour) unique
+ou alors cle primaire (ide, jour) et on enleve ids
+
+
+requete SQL :
+CREATE TABLE sejour( ids INT PRIMARY KEY, ide INT NOT NULL,
+1dv INT NOT NULL,
+FOREIGN KEY (1dc) REFERENCES client (1dc), FOREIGN KEY (1dv) REFERENCES village (idv),
+Jour INT NOT NULL, CHECK ((1<=jour) and (jour <= 360)).
+UNIQUE (ide, jour)
+
+Contraintes non sql :
+
+laa somme des séjours pour un village pour un jour donné ne peut pas exceder la capacite du village
+Pour tout idv de capacite n :
+Verfier que le nombre de lignes dans sejour pour idv et pour chaque jour j est inferieur à n
+l'avoir d'un client + la somme des prix de ses sejours <= 2000
+
+forall idc dans client :
+a appartient à avoir de idc
+s appartient somme des village! de ide
+verifie que a + s <= 2000
+
+
+Puis les séquences..
+
+
