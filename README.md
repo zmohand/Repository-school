@@ -1,3 +1,3 @@
-#School Repository
+# School Repository
 
 Just for school
