@@ -32,7 +32,46 @@ IS
   compteur integer;
 BEGIN
   select count(*) INTO compteur FROM sejour WHERE jour < le_jour;
-  // Supression des séjours
+  -- Supression des séjours
   DELETE sejour WHERE jour < le_jour;
   RETURN compteur;
-END
+END;
+/
+
+
+pour la lancer : 
+
+DECLARE
+  n int;
+begin
+  n := traitement_3(455);
+  dbms_output.put_line('effeace = ' || n);
+end;
+/
+
+OU ALORS : 
+EXEC dbms_output.put_line('efface = '|| traitement_3(500));
+
+Maitenant le faire en procedure et pas en fonction :
+
+
+
+CREATE OR REPLACE PROCEDURE traitement_3_proc(le_jour sejour.jour%type, compteur OUT integer)
+IS
+BEGIN
+  SELECT count(*) INTO compteur FROM sejour WHERE jour < le_jour;
+  -- Supression de sejours
+  DELETE sejour WHERE jour < le_jour;
+END;
+/
+
+DECLARE
+  n int;
+BEGIN
+  traitement_3_proc(46, n);
+  dbms_output.put_line('efface = ' || n);
+END;
+/
+
+
+
