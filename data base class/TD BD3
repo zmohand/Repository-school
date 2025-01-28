@@ -74,4 +74,20 @@ END;
 /
 
 
+TRAITEMENT 1 :
+
+CREATE OR REPLACE FUNCTION traitement_1(le_nom client.nom%type, l_age client.age%type) RETURN client.idc%type
+IS
+  le_idc client.idc%type;
+BEGIN
+  le_idc := seq_client.nextval;
+  insert into client(idc, nom, age) values (le_idc, le_nom, l_age);
+  RETURN le_idc;
+END;
+/
+
+
+exec dbms_output.put_line('valeur retourne :' || traitement_1('Bob', 30));
+
+
 
