@@ -26,3 +26,15 @@ tester
 recupérer une valeur ?
 (marche que sur une seule ligne): SELECT a INTO nom_variable FROM .....
 
+
+CREATE OR REPLACE FUNCTION traitement_3(
+  date_donnee sejour.jour%type)
+  RETURN integer
+IS
+  compteur integer;
+BEGIN
+  select count(*) INTO compteur FROM sejour WHERE jour < le_jour;
+  // Supression des séjours
+  DELETE sejour WHERE jour < le_jour;
+  RETURN compteur;
+END
