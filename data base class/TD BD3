@@ -91,3 +91,19 @@ exec dbms_output.put_line('valeur retourne :' || traitement_1('Bob', 30));
 
 
 
+Question 4 : procedure, pas de retour
+
+CREATE OR REPLACE PROCEDURE traitement4(sejour_id sejour.ids%type)
+IS
+  l_sejour sejour%ROWTYPE;
+  c_avoir client.avoir%TYPE;
+BEGIN
+    SELECT * INTO s_sejour FROM sejour WHERE ids = sejour_id;
+    SELECT avoir INTO c_avoir FROM client WHERE idc = s_sejour.idc
+    INSERT INTO archive VALUES (s_sejour.ids, s_sejour.idc, s_sejour.jour, c_avoir);
+END;
+/
+
+on s'est arrêté à la question 5
+
+
