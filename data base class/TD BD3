@@ -1,0 +1,28 @@
+Ecriture d'une fonction pour le traitement n3
+Destruction des sejours à une date (jour) donné
+paramètre : une date
+retour : le nombre de séjours detruits
+
+Une fonction en PL/SQL
+
+CREATE OR REPLACE FUNCTION nom_function(
+  parametre_nom parametre_type)
+  RETURN return_type
+IS
+  x type;   Variable de la fonction
+  y : type;
+BEGIN
+
+
+..
+END;
+
+
+tester
+-> SET SERVEROUTPUT ON (au debut du fichier)
+-> Ecrire sur la sortie standard : OBMS_OUTPUT put_line("blabla");
+
+
+recupérer une valeur ?
+(marche que sur une seule ligne): SELECT a INTO nom_variable FROM .....
+
