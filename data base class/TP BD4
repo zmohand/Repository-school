@@ -1,0 +1,83 @@
+create or replace procedure authentification(
+l_idc client.idc%type, le_nom client.nom%type)
+is
+  cursor c is
+    select * from client
+    where idc = l_idc and nom = le_nom;
+  cl client%ROWTYPE;
+begin
+  open c;
+  fetch c into cl;
+  if c%found then
+    dbms_output.put_line('bienvenue' || cl.nom || ' vous avez ' || cl.age || ' ans et il vous reste ' || cl.avoir || 'avoir');
+  else
+    dbms_output.put_line('Erreur authentification');
+  end if;
+  close c;
+end;
+/
+
+
+
+create or replace procedure consulter_informations(l_idc client.idc%type)
+is
+cursor c is
+select village.idv, village.ville, village.activite, village.prix, village.capacite
+from village, sejour
+where sejour.idc = l_idc and village.idv = sejour.idv;
+
+vil village%ROWTYPE;
+begin
+for x in (select ids,idv,jour from sejour where idc = l_idc)
+loop
+dbms_output.put_line('lids : ' || x.ids || 'l idv = ' || x.idv || ' et le jour : ' || x.jour );
+end loop;
+
+open c;
+fetch c into vil;
+while c%found loop
+dbms_output.put_line(vil.idv || vil.ville || vil.activite || vil.prix || vil.capacite);
+fetch c into vil;
+end loop;
+close c;
+end;
+/
+
+
+
+
+
+
+create or replace procedure traitement_3(
+  l_idc client.idc%type,
+  la_ville village.ville%type,
+  le_jour integer,
+  l_idv out village.idv%type,
+  l_ids out sejour.ids%type,
+  l_activite out village.activite%type)
+is
+  cursor c is
+    select idv, prix, activite
+    from village
+    where ville = la_ville
+    order by prix desc;
+  le_prix village.prix%type;
+
+begin
+  open c;
+  fetch c into l_idv, le_prix, l_activite;
+  if c%found then
+    l_ids := seq_sejour.nextval;
+    insert into sejour values (l_ids, l_idc, l_idv, l_activite);
+    update client set avoir = avoir - le_prix where idc = l_idc;
+  else
+    l_idv := -1;
+    l_ids := -1;
+    l_activite := 'neant';
+  end if;
+  close c;
+
+
+end;
+
+/
